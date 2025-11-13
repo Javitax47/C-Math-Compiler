@@ -66,4 +66,4 @@ Para "aplanar" el código, no podemos tener saltos impredecibles.
 
 ### ✅ Ejemplo de Código Compatible
 
-Este código **cumple** con las reglas. El Generador puede "aplanarlo" y traducirlo.
+[Este](examples/pong.c) código **cumple** con las reglas. El Generador puede "aplanarlo" y traducirlo.
