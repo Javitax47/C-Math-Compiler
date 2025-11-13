@@ -1,0 +1,18 @@
+# Archivos de cache de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Directorio de salida de ecuaciones
+output/
+
+# Entornos virtuales
+venv/
+.venv/
+.env
+env/
+
+# Metadatos del IDE
+.vscode/
+.idea/
