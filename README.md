@@ -108,51 +108,7 @@ Instala los paquetes de Python necesarios, principalmente la biblioteca `libclan
 pip install -r requirements.txt
 ```
 
-### 3\. ¡Importante\! Instalar LLVM y Clang (C++)
-
-El paquete `libclang` de Python es solo un *envoltorio* (wrapper). Necesita la biblioteca del compilador Clang **real** para analizar el código C. Debes instalar LLVM en tu sistema.
-
-  * **En Windows (recomendado):**
-
-    ```powershell
-    winget install LLVM.LLVM
-    ```
-
-  * **En macOS (usando Homebrew):**
-
-    ```bash
-    brew install llvm
-    ```
-
-  * **En Linux (Debian/Ubuntu):**
-
-    ```bash
-    sudo apt update
-    sudo apt install libclang-dev
-    ```
-
-### 4\. Conectar Python con libclang
-
-Este es el paso más importante. El script de Python necesita saber dónde encontrar la biblioteca `.dll` (Windows) o `.so` (Linux) que acabas de instalar.
-
-1.  Abre el archivo: `diophantus_compiler/parser.py`.
-2.  Busca la sección `--- Configuración de libclang ---` cerca de la parte superior.
-3.  **Descomenta** (quita el `#`) de la línea `clang.cindex.Config.set_library_path(...)`.
-4.  Asegúrate de que la ruta apunte a tu instalación.
-
-**Ejemplo para Windows (después de usar `winget`):**
-
-```python
-# --- Configuración de libclang ---
-# ... (comentarios)
-# Si instalaste LLVM (ej. 'winget install LLVM.LLVM'), 
-# es posible que necesites descomentar la siguiente línea y apuntar a tu instalación.
-clang.cindex.Config.set_library_path("C:/Program Files/LLVM/bin") # ¡Línea descomentada!
-```
-
-*(Nota: En Linux y macOS, este paso a menudo no es necesario si se instala desde un gestor de paquetes, ya que la biblioteca se coloca en una ruta estándar).*
-
-### 5\. Ejecutar el Compilador
+### 3\. Ejecutar el Compilador
 
 ¡Ya estás listo\! Ejecuta `main.py` desde el directorio raíz y pásale la ruta a uno de los ejemplos compatibles.
 
