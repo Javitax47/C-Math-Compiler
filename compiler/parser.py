@@ -2,7 +2,11 @@ import sys
 import clang.cindex
 from clang.cindex import CursorKind
 
-# (La configuración de libclang sigue igual)
+# --- Configuración de libclang ---
+# El paquete 'libclang' de Python necesita encontrar la biblioteca de Clang
+# (libclang.dll en Windows, libclang.so en Linux).
+# Si instalaste LLVM (ej. 'winget install LLVM.LLVM'), 
+# es posible que necesites descomentar la siguiente línea y apuntar a tu instalación.
 # clang.cindex.Config.set_library_path("C:/Program Files/LLVM/bin")
 
 def parse_c_file(filepath):
