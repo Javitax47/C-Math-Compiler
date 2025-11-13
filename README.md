@@ -27,6 +27,18 @@ Esto se logra en dos fases:
 
 -----
 
+Hecho. Esta sección es crucial.
+
+Aquí tienes la nueva sección `## 🚀 Preparación y Uso` para añadir al `README.md`. La he colocado justo después de la sección `## 🤯 ¿Qué es esto? La Teoría`.
+
+-----
+
+*(Fragmento del README.md)*
+
+... (sección de teoría) ...
+
+-----
+
 ## Reglas para Código Compatible
 
 Para que el "Generador" (Fase 2) pueda traducir tu código, este debe seguir un conjunto de reglas estrictas. Estás escribiendo un programa, pero también estás definiendo una función matemática estática.
@@ -61,6 +73,50 @@ Para "aplanar" el código, no podemos tener saltos impredecibles.
 ### Regla 5: Sin Estado Oculto
 
   * **Prohibido:** No uses `static` en variables locales dentro del bucle. Esto introduce un estado oculto que rompe el modelo $S_{t+1} = F(S_t)$.
+
+-----
+
+## 🚀 Preparación y Uso
+
+Sigue estos pasos para clonar el repositorio, configurar el entorno y ejecutar el compilador.
+
+### 1\. Obtener el Código y Crear un Entorno
+
+Primero, clona el repositorio y crea un entorno virtual de Python.
+
+```bash
+# 1. Clona el repositorio
+git clone https://github.com/tu-usuario/project-diophantus.git
+cd project-diophantus
+
+# 2. Crea un entorno virtual
+python -m venv venv
+
+# 3. Activa el entorno
+# En Windows (PowerShell/CMD)
+.\venv\Scripts\activate
+# En macOS/Linux
+source venv/bin/activate
+```
+
+### 2\. Instalar Dependencias (Python)
+
+Instala los paquetes de Python necesarios, principalmente la biblioteca `libclang`.
+
+```bash
+# 4. Instala las dependencias
+pip install -r requirements.txt
+```
+
+### 3\. Ejecutar el Compilador
+
+¡Ya estás listo\! Ejecuta `main.py` desde el directorio raíz y pásale la ruta a uno de los ejemplos compatibles.
+
+**Prueba con el contador simple:**
+
+```bash
+python main.py examples/simple_counter.c
+```
 
 -----
 
