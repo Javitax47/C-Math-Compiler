@@ -39,6 +39,43 @@ Aquí tienes la nueva sección `## 🚀 Preparación y Uso` para añadir al `REA
 
 -----
 
+## Reglas para Código Compatible
+
+Para que el "Generador" (Fase 2) pueda traducir tu código, este debe seguir un conjunto de reglas estrictas. Estás escribiendo un programa, pero también estás definiendo una función matemática estática.
+
+> **Importante:** El objetivo es que *toda* la lógica del programa se pueda "aplanar" en una única función de transición `S_t+1 = F(S_t)`.
+
+### Regla 1: El Bucle de Estado Único
+
+Toda la lógica computable del programa debe residir dentro de un **único bucle infinito** (`while(1)` o `for(;;)`).
+
+  * **Variables de Estado (Globales):** Las variables declaradas *fuera* del bucle (como `b`, `c`, `p`, `q` en Pong) se tratan como el **Estado ($S_t$)**.
+  * **Variables Auxiliares (Locales):** Las variables declaradas *dentro* del bucle (como `b_temp`) se tratan como "piezas" o "partes" para construir la ecuación final.
+
+### Regla 2: Sin Funciones Externas
+
+La lógica debe ser autocontenida. **No se permiten llamadas a funciones** que hayas definido en otra parte (ej. `mi_funcion()`). Toda la lógica debe estar "inline" (dentro del bucle).
+
+### Regla 3: Manejo de Entradas y Salidas (I/O)
+
+La I/O no es "computable" en el sentido matemático puro.
+
+  * **Salida (Prohibida):** `printf()`, `puts()`, `system()`, `Sleep()` y cualquier función que interactúe con el "mundo exterior" será **ignorada** por el compilador.
+  * **Entrada (Permitida):** Las funciones de entrada (ej. `k = getch();`) son un caso especial. El compilador las tratará como la variable de entrada $I_t$.
+
+### Regla 4: Sin Flujo de Control Complejo
+
+Para "aplanar" el código, no podemos tener saltos impredecibles.
+
+  * **Prohibido:** `goto`, `break`, `continue`.
+  * **Permitido:** `if`, `else`. (Las estructuras `switch` deben reescribirse como una serie de `if/else`).
+
+### Regla 5: Sin Estado Oculto
+
+  * **Prohibido:** No uses `static` en variables locales dentro del bucle. Esto introduce un estado oculto que rompe el modelo $S_{t+1} = F(S_t)$.
+
+-----
+
 ## 🚀 Preparación y Uso
 
 Sigue estos pasos para clonar el repositorio, configurar el entorno y ejecutar el compilador.
@@ -124,49 +161,6 @@ clang.cindex.Config.set_library_path("C:/Program Files/LLVM/bin") # ¡Línea des
 ```bash
 python main.py examples/simple_counter.c
 ```
-
-**Prueba con Pong:**
-
-```bash
-python main.py examples/pong_compatible.c
-```
-
------
-
-## Reglas para Código Compatible
-
-Para que el "Generador" (Fase 2) pueda traducir tu código, este debe seguir un conjunto de reglas estrictas. Estás escribiendo un programa, pero también estás definiendo una función matemática estática.
-
-> **Importante:** El objetivo es que *toda* la lógica del programa se pueda "aplanar" en una única función de transición `S_t+1 = F(S_t)`.
-
-### Regla 1: El Bucle de Estado Único
-
-Toda la lógica computable del programa debe residir dentro de un **único bucle infinito** (`while(1)` o `for(;;)`).
-
-  * **Variables de Estado (Globales):** Las variables declaradas *fuera* del bucle (como `b`, `c`, `p`, `q` en Pong) se tratan como el **Estado ($S_t$)**.
-  * **Variables Auxiliares (Locales):** Las variables declaradas *dentro* del bucle (como `b_temp`) se tratan como "piezas" o "partes" para construir la ecuación final.
-
-### Regla 2: Sin Funciones Externas
-
-La lógica debe ser autocontenida. **No se permiten llamadas a funciones** que hayas definido en otra parte (ej. `mi_funcion()`). Toda la lógica debe estar "inline" (dentro del bucle).
-
-### Regla 3: Manejo de Entradas y Salidas (I/O)
-
-La I/O no es "computable" en el sentido matemático puro.
-
-  * **Salida (Prohibida):** `printf()`, `puts()`, `system()`, `Sleep()` y cualquier función que interactúe con el "mundo exterior" será **ignorada** por el compilador.
-  * **Entrada (Permitida):** Las funciones de entrada (ej. `k = getch();`) son un caso especial. El compilador las tratará como la variable de entrada $I_t$.
-
-### Regla 4: Sin Flujo de Control Complejo
-
-Para "aplanar" el código, no podemos tener saltos impredecibles.
-
-  * **Prohibido:** `goto`, `break`, `continue`.
-  * **Permitido:** `if`, `else`. (Las estructuras `switch` deben reescribirse como una serie de `if/else`).
-
-### Regla 5: Sin Estado Oculto
-
-  * **Prohibido:** No uses `static` en variables locales dentro del bucle. Esto introduce un estado oculto que rompe el modelo $S_{t+1} = F(S_t)$.
 
 -----
 
