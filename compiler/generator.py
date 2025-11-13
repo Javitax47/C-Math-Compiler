@@ -25,6 +25,8 @@ class AstFlattener:
         # Contador para variables únicas de 'if'
         self.if_cond_counter = 0
 
+        self.input_vars = set()
+
     def generate_function_F(self, logic_tree):
         """Punto de entrada. Visita el árbol y devuelve la Función F."""
         
@@ -227,7 +229,9 @@ class AstFlattener:
     def _visit_Call(self, node):
         """Visita 'getch()' o 'kbhit()'"""
         # Las tratamos como variables de entrada especiales
-        return node['name']
+        var_name = node['name']
+        self.input_vars.add(var_name)
+        return var_name
 
 
 #======================================================================
@@ -237,6 +241,10 @@ class AstFlattener:
 def generate_function(ast_map):
     """
     Genera la Función de Transición (F) a partir del mapa del AST.
+    
+    Devuelve:
+    1. La F-Function como un diccionario de tuplas (AST interno).
+    2. Un set de las variables de entrada detectadas (ej. {'getch', 'kbhit'}).
     """
     print(f"  [Generator] Iniciando Generación de Función F...")
     
@@ -246,12 +254,7 @@ def generate_function(ast_map):
     flattener = AstFlattener(state_vars)
     function_F_internal = flattener.generate_function_F(logic_tree)
     
-    # El resultado final es un diccionario de strings
-    function_F_strings = {}
+    print(f"  [Generator] ...Aplanamiento completado. Devolviendo AST de tuplas.")
     
-    print(f"  [Generator] ...Aplanamiento completado. Generando strings de ecuación...")
-    for var, expression in function_F_internal.items():
-        function_F_strings[var] = flattener._format_expression(expression)
-        
-    print(f"  [Generator] ...Función de Transición (F) generada.")
-    return function_F_strings
+    # Devolvemos el AST de tuplas Y las variables de entrada
+    return function_F_internal, flattener.input_vars
