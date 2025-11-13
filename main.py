@@ -48,8 +48,6 @@ def main():
         
         latex_output = exporter.export()
             
-        latex_output = exporter.export()
-            
         # 5. Guardar el .tex
         with open(tex_path, "w", encoding="utf-8") as f:
             f.write(latex_output)
