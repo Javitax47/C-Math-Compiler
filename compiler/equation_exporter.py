@@ -36,7 +36,7 @@ class EquationExporter:
         num_terms = len(sorted_vars)
         
         for i, var in enumerate(sorted_vars):
-            expr_tuple = self.unoptimized_f.get(var, var)
+            expr_tuple = self.unoptimized_f[var]
             
             # Formato del término: (var[t+1] - (expr))^2
             lhs_size = len(f"{var}[t+1]".encode('utf-8'))
@@ -64,7 +64,7 @@ class EquationExporter:
         """
         terms = []
         for var in sorted(self.unoptimized_f.keys()):
-            expr_tuple = self.unoptimized_f.get(var, var)
+            expr_tuple = self.unoptimized_f[var]
             lhs = f"{var}[t+1]"
             rhs = self._expr_to_poly_string(expr_tuple, expand=True)
             terms.append(f"({lhs} - ({rhs}))^2")
@@ -82,21 +82,17 @@ class EquationExporter:
         # 1. Sección de definiciones de C_n
         defs_section = []
         if self.sub_defs:
-            # Usamos un nombre más descriptivo para el usuario final
             defs_section.append("--- [DEFINICIONES DE SUBEXPRESIONES COMUNES (C_n)] ---")
-            # Ordenar por el número en C_n para una salida consistente
             sorted_defs = sorted(self.sub_defs.items(), key=lambda item: int(re.search(r'\d+', item[0]).group()))
             for name, expr_tuple in sorted_defs:
-                # El nombre de la subexpresión no necesita los {} en el .txt
-                clean_name = name.replace("{", "").replace("}", "")
                 rhs = self._expr_to_poly_string(expr_tuple, expand=False)
-                defs_section.append(f"{clean_name} = {rhs}")
+                defs_section.append(f"{name} = {rhs}")
         
         # 2. Ecuación maestra P=0 que utiliza las C_n
         main_eq_section = ["\n--- [ECUACIÓN MAESTRA (OPTIMIZADA)] ---"]
         terms = []
         for var in sorted(self.optimized_f.keys()):
-            expr_tuple = self.optimized_f.get(var, var)
+            expr_tuple = self.optimized_f[var]
             lhs = f"{var}[t+1]"
             rhs = self._expr_to_poly_string(expr_tuple, expand=False)
             terms.append(f"({lhs} - ({rhs}))^2")
@@ -113,9 +109,6 @@ class EquationExporter:
             return self._expr_to_poly_string(self.sub_defs[expr], expand)
 
         if not isinstance(expr, tuple):
-            # Limpiar C_{n} a C_n para el archivo de texto
-            if isinstance(expr, str):
-                return expr.replace("{", "").replace("}", "")
             return str(expr) if expr is not None else "0"
 
         op = expr[0]
@@ -142,10 +135,7 @@ class EquationExporter:
             return self._calculate_poly_string_size(self.sub_defs[expr], expand)
 
         if not isinstance(expr, tuple):
-            base_str = str(expr) if expr is not None else "0"
-            if isinstance(expr, str): # Quitar {} de C_n para el cálculo
-                base_str = base_str.replace("{", "").replace("}", "")
-            return len(base_str.encode('utf-8'))
+            return len(str(expr).encode('utf-8') if expr is not None else b'0')
 
         op = expr[0]
         arg_sizes = [self._calculate_poly_string_size(e, expand) for e in expr[1:]]
@@ -154,7 +144,7 @@ class EquationExporter:
             return 8 + arg_sizes[0] + 5 + arg_sizes[1] + 8 + arg_sizes[0] + 5 + arg_sizes[2] + 2
         if op == 'neg': # "(-{s0})"
             return 3 + arg_sizes[0]
-        if op in ('+', '-', '*', '/'): # "({s0} op {s1})"
+        if op in ('+', '-', '*', '/'): # "({s0} op {s1})" -> 2 + s0 + 3 + s1 + 1
             return arg_sizes[0] + arg_sizes[1] + 6
         if op == '&&': # "({s0} * {s1})"
             return arg_sizes[0] + arg_sizes[1] + 7
