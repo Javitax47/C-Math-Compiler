@@ -4,9 +4,6 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Directorio de salida de ecuaciones
-output/
-
 # Entornos virtuales
 venv/
 .venv/
