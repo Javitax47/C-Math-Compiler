@@ -52,7 +52,7 @@ En resumen, Project Diophantus no es valioso a pesar de su ineficiencia, sino **
 
 ---
 
-## **"Potencial Revolucionario y Limitaciones Fundamentales de "Project Diophantus"**
+## **Potencial Revolucionario y Limitaciones Fundamentales de "Project Diophantus**
 
 "Project Diophantus" es más que un compilador; es un puente filosófico entre el mundo dinámico de la programación y el universo estático de las matemáticas. Al traducir código imperativo a ecuaciones diofánticas, no solo implementa una de las teorías más profundas de la computabilidad (el Teorema MRDP), sino que también nos permite imaginar una revolución en la forma en que concebimos, creamos y confiamos en el software.
 
@@ -78,7 +78,7 @@ La inmensa brecha entre este potencial y la realidad actual se debe a barreras m
 
 ---
 
-## **"Propuestas para la viabilidad práctica del Software como Objeto Matemático"**
+## **Propuestas para la viabilidad práctica del Software como Objeto Matemático**
 
 Aquí presento cuatro estrategias, desde las más pragmáticas hasta las más visionarias, para atacar las limitaciones fundamentales del proyecto.
 
