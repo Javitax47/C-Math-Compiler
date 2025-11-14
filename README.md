@@ -117,7 +117,7 @@ Después de la instalación manual, intenta ejecutar el comando `pip install -r 
 
 Tras una compilación exitosa, encontrarás un nuevo archivo en la carpeta `output/`:
 
-`output/pong_full_analysis.pdf`
+`output/pong_full_analysis.tex`
 
 Este documento es el artefacto principal del proyecto. Contiene:
 1.  Un análisis de las variables de estado y de entrada.
@@ -125,7 +125,7 @@ Este documento es el artefacto principal del proyecto. Contiene:
 3.  El **Sistema de Ecuaciones Diofánticas Puras**, el plano de ingeniería del programa.
 4.  La **Ecuación Polinómica Única (Forma Teórica P=0)**, la demostración final del teorema.
 
-Puedes ver el informe generado para `pong.c` directamente [aquí](./output/pong_full_analysis.pdf).
+Puedes ver el informe generado para `pong.c` directamente [aquí](C_Math.pdf).
 
 ---
 
