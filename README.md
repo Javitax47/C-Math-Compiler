@@ -1,4 +1,4 @@
-### **Resumen Final del Proyecto: "Project Diophantus"**
+# **Project Diophantus**
 
 **Project Diophantus** es un compilador experimental que explora la profunda y fundamental conexión entre la computación y las matemáticas. En lugar de generar código máquina ejecutable, este proyecto toma programas escritos en un subconjunto del lenguaje C y los traduce a su equivalente matemático puro: un sistema de **ecuaciones diofánticas**.
 
@@ -52,11 +52,11 @@ En resumen, Project Diophantus no es valioso a pesar de su ineficiencia, sino **
 
 ---
 
-### **"Potencial Revolucionario y Limitaciones Fundamentales de "Project Diophantus"**
+## **"Potencial Revolucionario y Limitaciones Fundamentales de "Project Diophantus"**
 
 "Project Diophantus" es más que un compilador; es un puente filosófico entre el mundo dinámico de la programación y el universo estático de las matemáticas. Al traducir código imperativo a ecuaciones diofánticas, no solo implementa una de las teorías más profundas de la computabilidad (el Teorema MRDP), sino que también nos permite imaginar una revolución en la forma en que concebimos, creamos y confiamos en el software.
 
-#### **El Potencial Revolucionador: El Software como Objeto Matemático**
+### **El Potencial Revolucionador: El Software como Objeto Matemático**
 
 Si las barreras computacionales pudieran superarse, esta técnica no solo mejoraría el software, sino que alteraría su naturaleza fundamental.
 
@@ -66,7 +66,7 @@ Si las barreras computacionales pudieran superarse, esta técnica no solo mejora
 
 3.  **Del Compilador al Diseñador de Chips:** El software y el hardware se fusionarían. La ecuación final de un programa es, en esencia, un diagrama de circuito. El compilador no generaría instrucciones para una CPU genérica, sino el **diseño de un chip (ASIC) a medida** que *es* la encarnación física del programa, ofreciendo una eficiencia y velocidad inalcanzables hoy en día.
 
-#### **Las Limitaciones Fundamentales: El Muro de la Complejidad**
+### **Las Limitaciones Fundamentales: El Muro de la Complejidad**
 
 La inmensa brecha entre este potencial y la realidad actual se debe a barreras matemáticas profundas, no a simples desafíos de ingeniería.
 
@@ -78,7 +78,7 @@ La inmensa brecha entre este potencial y la realidad actual se debe a barreras m
 
 ---
 
-### **"Propuestas para la viabilidad práctica del Software como Objeto Matemático"**
+## **"Propuestas para la viabilidad práctica del Software como Objeto Matemático"**
 
 Aquí presento cuatro estrategias, desde las más pragmáticas hasta las más visionarias, para atacar las limitaciones fundamentales del proyecto.
 
