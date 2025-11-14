@@ -125,8 +125,7 @@ Este documento es el artefacto principal del proyecto. Contiene:
 3.  El **Sistema de Ecuaciones Diofánticas Puras**, el plano de ingeniería del programa.
 4.  La **Ecuación Polinómica Única (Forma Teórica P=0)**, la demostración final del teorema.
 
-> ### [Puedes ver el informe generado para `pong.c` directamente aquí.](./output/pong_full_analysis.pdf)
-> *(Asegúrate de haber generado y subido el PDF a esta ruta en tu repositorio)*
+Puedes ver el informe generado para `pong.c` directamente [aquí].(./output/pong_full_analysis.pdf)
 
 ---
 
