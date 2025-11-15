@@ -53,15 +53,56 @@ class EquationExporter:
         if op in op_map: return f"{op_map[op]}({args[0]}, {args[1]})"
         return f"UNKNOWN_OP({op}, {', '.join(args)})"
 
+
+    # --- INICIO DE LA MODIFICACIÓN ---
+    # Esta función ahora convertirá la lógica de 'if', '&&', '||' 
+    # a su forma polinómica, pero en el formato PREFIJO que el
+    # intérprete entiende.
     def _tuple_to_generic_string(self, expr):
-        """Convierte una tupla a un string genérico para el intérprete, ej: 'OP(arg1, arg2)'."""
+        """
+        Convierte una tupla a un string genérico para el intérprete.
+        --- MODIFICADO ---
+        Convierte la lógica (if, &&, ||) a su forma polinómica (+, -, *).
+        """
         if not isinstance(expr, tuple):
             return str(expr).replace("{", "").replace("}", "")
+        
         op = expr[0]
+
+        # --- CONVERSIÓN A POLINOMIO (PREFIJO) ---
+
+        if op == 'if':
+            # expr es ('if', cond, then_val, else_val)
+            # Convertir a: +( *(cond, then_val), *( -(1, cond), else_val) )
+            cond = self._tuple_to_generic_string(expr[1])
+            then_val = self._tuple_to_generic_string(expr[2])
+            else_val = self._tuple_to_generic_string(expr[3])
+            return f"+( *({cond}, {then_val}), *( -(1, {cond}), {else_val}) )"
+        
+        if op == '&&':
+            # expr es ('&&', a, b)
+            # Convertir a: *(a, b)
+            a = self._tuple_to_generic_string(expr[1])
+            b = self._tuple_to_generic_string(expr[2])
+            return f"*( {a}, {b} )"
+
+        if op == '||':
+            # expr es ('||', a, b)
+            # Convertir a: -( +(a, b), *(a, b) )
+            a = self._tuple_to_generic_string(expr[1])
+            b = self._tuple_to_generic_string(expr[2])
+            return f"-( +({a}, {b}), *({a}, {b}) )"
+        
+        # --- FIN DE LA CONVERSIÓN ---
+
+        # El resto de operadores (incluyendo +, -, *, neg, ==, >, etc.)
+        # pasan tal cual, ya que el intérprete los entiende.
         args = [self._tuple_to_generic_string(arg) for arg in expr[1:]]
         return f"{op}({', '.join(args)})"
+    # --- FIN DE LA MODIFICACIÓN ---
 
-    # --- Métodos Públicos de Exportación ---
+
+    # --- Métodos Públicos de Exportación (Sin cambios) ---
 
     def export_unoptimized(self):
         """
@@ -119,7 +160,7 @@ class EquationExporter:
         sorted_defs = sorted(self.sub_defs.items(), key=self._get_sort_key)
         for name, expr_tuple in sorted_defs:
             clean_name = name.replace("{", "").replace("}", "")
-            expr_str = self._tuple_to_generic_string(expr_tuple)
+            expr_str = self._tuple_to_generic_string(expr_tuple) # <-- AHORA USA LA VERSIÓN POLINÓMICA
             lines.append(f"{clean_name} := {expr_str}")
         
         # --- CORRECCIÓN: Distingue entre variables de estado y variables intermedias ---
@@ -132,7 +173,7 @@ class EquationExporter:
                 # Es una variable intermedia, no lleva sufijo de tiempo
                 lhs = var
             
-            expr_str = self._tuple_to_generic_string(expr_tuple)
+            expr_str = self._tuple_to_generic_string(expr_tuple) # <-- AHORA USA LA VERSIÓN POLINÓMICA
             lines.append(f"{lhs} := {expr_str}")
             
         return "\n".join(lines)
