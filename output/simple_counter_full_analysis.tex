@@ -1,0 +1,94 @@
+
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\allowdisplaybreaks
+
+\title{Análisis Matemático de un Programa en C \\ \large Generado por Project Diophantus}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Resumen Ejecutivo}
+Este documento presenta la traducción completa de un programa de software escrito en C a un objeto matemático puro: un sistema de ecuaciones diofánticas. El proceso demuestra la equivalencia fundamental entre la computación (algoritmos) y la teoría de números (polinomios), como lo postula el Teorema de Matiyasevich (MRDP).
+
+El compilador ha analizado el código fuente y ha extraído las siguientes componentes clave para describir una única transición de estado (un "fotograma"):
+\begin{itemize}
+    \item \textbf{Variables de Estado ($S_t$):} Las variables que definen el estado del sistema en un instante $t$. Para este programa, son: x.
+    \item \textbf{Variables de Entrada ($I_t$):} Las variables que representan la interacción con el exterior en el instante $t$. Para este programa, son: ninguna.
+\end{itemize}
+
+El documento se divide en dos partes principales, que corresponden a las dos grandes fases de la traducción:
+\begin{enumerate}
+    \item \textbf{La Función de Transición de Estado:} Muestra cómo la lógica procedural del programa (bucles, condicionales) se "aplana" en un sistema de ecuaciones de asignación $S_{t+1} = F(S_t, I_t)$, y cómo este sistema se optimiza para revelar su estructura.
+    \item \textbf{La Conversión a Polinomio Puro:} Muestra cómo el sistema de asignación, que aún contiene operadores lógicos, se convierte en un sistema de ecuaciones diofánticas puras (solo usando suma, resta y multiplicación), cumpliendo con el objetivo teórico final del proyecto.
+\end{enumerate}
+
+\part{La Función de Transición de Estado}
+\section{Aplanamiento y Optimización}
+El primer paso consiste en convertir la lógica imperativa del bucle principal del programa en una función matemática estática, $F$. Esto se logra mediante un proceso de "aplanamiento" que transforma construcciones como `if-else` en expresiones aritméticas y sustituye todas las variables temporales hasta que cada ecuación solo dependa del estado anterior ($S_t$) y las entradas ($I_t$).
+
+\subsection*{Ecuaciones de Estado (Forma Pura, Sin Optimizar)}
+Esta es la forma "pura" de la función de transición. Cada ecuación es matemáticamente autocontenida y muestra la dependencia total del estado anterior. Su complejidad y repetición visual reflejan la necesidad de optimización.
+\begin{align*}
+x[t+1] &= (x + 1)
+\end{align*}
+
+\subsection*{Ecuaciones de Estado Finales (Optimizadas con CSE)}
+Esta es la versión final y simplificada de la función de transición. Utiliza las definiciones de $C_n$ para ser más compacta, legible y eficiente. Esta forma es la que más se asemeja a cómo un humano estructuraría los cálculos.
+\begin{align*}
+x[t+1] &= (x + 1)
+\end{align*}
+
+\part{Conversión a Polinomio Puro}
+\section{Traducción a Ecuaciones Diofánticas}
+El paso final y más profundo es convertir la función de transición (que aún contiene operadores lógicos como `==`, `<`, etc.) en un sistema que solo utiliza aritmética entera (suma, resta, multiplicación). Esto se logra introduciendo variables existenciales ($e_n$) y aplicando trucos de la teoría de números, como el Teorema de los Cuatro Cuadrados de Lagrange para manejar las desigualdades.
+
+El proceso ha introducido \textbf{0 variables existenciales} para producir un sistema de \textbf{1 ecuaciones puras}.
+
+\subsection*{Sistema de Ecuaciones Diofánticas Puras (Forma Práctica)}
+Esta es la representación más útil para aplicaciones de ingeniería, como la simulación o la síntesis de hardware. Es un sistema de ecuaciones interdependientes que deben satisfacerse simultáneamente. Cada línea representa un cálculo simple o una restricción lógica.
+\begin{align*}
+x[t+1] - (x + 1) &= 0
+\end{align*}
+\subsection*{Ecuación Polinómica Única (Forma Teórica P=0)}
+Por completitud teórica, el sistema anterior puede ser combinado en una única ecuación mediante la suma de los cuadrados de cada ecuación. Una solución entera a esta única y masiva ecuación corresponde a una transición de estado válida del programa original. Esta es la forma final que demuestra el Teorema MRDP.
+\begin{align*}
+& (x[t+1] - (x + 1))^{2} = 0
+\end{align*}
+\end{document}
